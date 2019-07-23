@@ -7,14 +7,13 @@ class Codec:
 
     def encode(self, longUrl):
         charRange= []
-        for i in range (ord("a"),ord("z")+1):
-            charRange.append (chr(i))
-        for i in range (ord("A"),ord("Z")+1):
-            charRange.append (chr(i))
-        for i in range (ord("0"), ord("9")+1):
-            charRange.append (chr(i))
-
-        tinyStr= "".join(random.choices(charRange,k=6))
+        tinyStr =""
+        charRange.extend (range (ord("a"),ord("z")+1))
+        charRange.extend (range (ord("A"),ord("Z")+1))
+        charRange.extend (range (ord("0"), ord("9")+1))
+        for i in range (0,6):
+            randVal= random.randint(0,len (charRange)-1)
+            tinyStr= tinyStr + chr (charRange[randVal])
         print (tinyStr)
 
         self.urlDict[tinyStr]= longUrl
@@ -30,7 +29,7 @@ class Codec:
 
     def decode(self, shortUrl):
         if shortUrl in self.urlDict:
-            # print (self.urlDict.get (shortUrl))
+            print (self.urlDict.get (shortUrl))
             return self.urlDict.get (shortUrl)
         """Decodes a shortened URL to its original URL.
         
